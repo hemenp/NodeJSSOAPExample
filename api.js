@@ -42,28 +42,25 @@ const query = (Temp, elementToParse) => {
       var myTimeStamp = dateToLocalISO(d);
 	
 
-		console.log("test-->",myTimeStamp);     
-      console.log('test');
-      console.log('timeStamp', myTimeStamp);
+	  //console.log("test-->",myTimeStamp);     
+      console.log('testing timestamp');
+      console.log('timeStamp in request :: ', myTimeStamp);
 	  console.log('myprivatekey: ',private_key);
       signer.write(myTimeStamp);
       signer.end();
 	  
-	  console.log( (new Date()).toString());
-	  console.log((new Date()).toLocaleString());
-	  console.log( (new Date()).getTimezoneOffset());
+	  //console.log( (new Date()).toString());
+	  //console.log((new Date()).toLocaleString());
+	  //console.log( (new Date()).getTimezoneOffset());
       const signature = signer.sign(private_key, 'base64');
 	
 xml = `<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:v1=\"http://rx-savings.medimpact.com/contract/PricingEngine/v1.0\">
                     <soapenv:Header/>
                     <soapenv:Body>
                        <v1:findDrugByNameRequest>
-					   <!--                   <v1:clientAccountCode>MA01</v1:clientAccountCode> 
-							<v1:token>cHHHT2hI/BDAUt9SEnloLwMF8MKgXY2YiBHUlsMU5FTJCBZqj5mgRQB5CtITinZUXm3jlCz4vCzwcSPabjJuhKCjhPd71w0L/K8qlMyXLemxJnZ8s6UZrJm2y0QGdCwr47A8SHYF50gNq13DvZfVtktsaoafrc1QylbsV0UMX43tRm0Ew2BE5lMc/6aqgQlgMMWeiELkTWPf+pJFPpABqBKazRvCXgVd1cCi++BmYIkT1IUqxvrPdVuiVZOu266NM4H88WhGMaeylIo9iKCvPZt3FE3JTIwS9lZCZyRgILdWKnp+w+krwGYPyYBew2oLEnyIogFP0ISdWrY1Xk1BTw==</v1:token> 
-							 <v1:token>cHHHT2hI/BDAUt9SEnloLwMF8MKgXY2YiBHUlsMU5FTJCBZqj5mgRQB5CtITinZUXm3jlCz4vCzwcSPabjJuhKCjhPd71w0L/K8qlMyXLemxJnZ8s6UZrJm2y0QGdCwr47A8SHYF50gNq13DvZfVtktsaoafrc1QylbsV0UMX43tRm0Ew2BE5lMc/6aqgQlgMMWeiELkTWPf+pJFPpABqBKazRvCXgVd1cCi++BmYIkT1IUqxvrPdVuiVZOu266NM4H88WhGMaeylIo9iKCvPZt3FE3JTIwS9lZCZyRgILdWKnp+w+krwGYPyYBew2oLEnyIogFP0ISdWrY1Xk1BTw==</v1:token>-->
-					      <v1:clientAccountCode>CTI01</v1:clientAccountCode>
-                          <v1:token>O0YsWqRxRVC57pc9HNu2n1WHWtgYjZs9sh6RKpY76vzzA+01X3oiu1jfD+/OZTDJdXGsB/x4rjvxg5FxFR2hiO/hTEiAk97fM42XUfXY1YwzG6IuuqtUF1hfDwfBh3Scd3fVGPUloM7dpmZFYiWW66sT7IDaLM96a/OWNnNpLv5U2zE+7D/d/VXhYEiMFkn7ZzKups3dyz6XUCXHyQnSambGz3XMCvf1ew9oDeTS7Ztlf9z9x8PPGsR032hicBGZ9ZLjb/jWZTin7cBaOFdpn6OIKPMkQA+mYlokALoRQN4mYCwTc8OzwVneNFhMKl9bZLIF261bQUXmm0oQGiNFiA==</v1:token>
-                          <v1:timestamp>${myTimeStamp}</v1:timestamp>
+				<v1:clientAccountCode>CTI01</v1:clientAccountCode>
+				<v1:token>cHHHT2hI/BDAUt9SEnloLwMF8MKgXY2YiBHUlsMU5FTJCBZqj5mgRQB5CtITinZUXm3jlCz4vCzwcSPabjJuhKCjhPd71w0L/K8qlMyXLemxJnZ8s6UZrJm2y0QGdCwr47A8SHYF50gNq13DvZfVtktsaoafrc1QylbsV0UMX43tRm0Ew2BE5lMc/6aqgQlgMMWeiELkTWPf+pJFPpABqBKazRvCXgVd1cCi++BmYIkT1IUqxvrPdVuiVZOu266NM4H88WhGMaeylIo9iKCvPZt3FE3JTIwS9lZCZyRgILdWKnp+w+krwGYPyYBew2oLEnyIogFP0ISdWrY1Xk1BTw==</v1:token>
+				<v1:timestamp>${myTimeStamp}</v1:timestamp>
                           <v1:prefixText>${Temp}</v1:prefixText>
                           <!--Optional:-->
                           <v1:count>10</v1:count>
@@ -77,7 +74,7 @@ const verify = crypto.createVerify('RSA-SHA256');
 verify.write(myTimeStamp);
 verify.end();
 
-console.log("--verification-->>>>>>>>>>>>",verify.verify(public_key, signature,'base64'));
+console.log("--Your Private and pulic key verification done at client side. It must be true. -->>>>>>>>>>>> ",verify.verify(public_key, signature,'base64'));
 
 
   options = {
@@ -99,7 +96,7 @@ console.log("--verification-->>>>>>>>>>>>",verify.verify(public_key, signature,'
         return;
       }
       text = response.body;
-	  console.log("text",text);
+	  console.log("Response ::: ",text);
       parser = new DOMParser();
       xmlDoc = parser.parseFromString(text, "text/xml");
       xmlResult = xmlDoc.getElementsByTagName(`${elementToParse}`)[0].childNodes[0].nodeValue;
